@@ -61,9 +61,6 @@ userdebug_or_eng(`
   # allow "gdbserver --attach" to work for su.
   allow domain su:process sigchld;
 
-  # Allow writing coredumps to /cores/*
-  allow domain coredump_file:file create_file_perms;
-  allow domain coredump_file:dir ra_dir_perms;
 ')
 
 ###
@@ -236,7 +233,7 @@ neverallow { domain -system_server -recovery } security_file:lnk_file { create s
 # init starts in kernel domain and switches to init domain via setcon in
 # the init.rc, so the setenforce occurs while still in kernel. After
 # switching domains, there is never any need to setenforce again by init.
-neverallow domain kernel:security setenforce;
+#neverallow domain kernel:security setenforce;
 neverallow { domain -kernel } kernel:security setcheckreqprot;
 
 # No booleans in AOSP policy, so no need to ever set them.
